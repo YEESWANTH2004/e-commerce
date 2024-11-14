@@ -1,3 +1,6 @@
+import {cart} from '../data/cart.js';
+import { products } from '../data/products.js';
+
 let productsHTML = ' ';
 
 products.forEach((product) =>{
@@ -107,7 +110,7 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
 
     const timeoutId = setTimeout(() => {
       addedMessage.classList.remove('added-to-cart-visible');
-    },10000);
+    },5000);
 
     addedMessageTimeouts = timeoutId;
     });
