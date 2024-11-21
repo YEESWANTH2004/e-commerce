@@ -42,6 +42,16 @@ export function addToCart(productId){
     saveToStorage(); 
 }
 
+export function calculateCartQuantity(){
+  let cartQuantity = 0;
+
+    cart.forEach((item)=>{
+      cartQuantity += item.quantity;
+    });
+    
+return cartQuantity;
+}
+
 export function removeFromCart(productId) {
   // Use filter to create a new array excluding the item with the matching productId
   cart = cart.filter(cartItem => cartItem.productId !== productId);
