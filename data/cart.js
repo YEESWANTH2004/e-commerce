@@ -51,6 +51,19 @@ export function calculateCartQuantity(){
     
 return cartQuantity;
 }
+export function updateQuantity(productId,newQuantity){
+  let matchingItem;
+
+  cart.forEach((cartItem) =>{
+    if(productId === cartItem.productId){
+      matchingItem = cartItem;
+    }
+  });
+
+  matchingItem.quantity = newQuantity;
+
+  saveToStorage();
+}
 
 export function removeFromCart(productId) {
   // Use filter to create a new array excluding the item with the matching productId
@@ -58,3 +71,4 @@ export function removeFromCart(productId) {
 
   saveToStorage();
 }
+
