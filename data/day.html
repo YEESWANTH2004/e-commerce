@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+  <head></head>
+<body>
+<script type="module" >
+    import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
+    import isSatSun from './day.js'
+    
+
+    let date = dayjs();
+    console.log(date.format('dddd, MMMM D'));
+    console.log(isSatSun(date));
+
+    date = dayjs().add(2, 'day');
+    console.log(date.format('dddd, MMMM D'));
+    console.log(isSatSun(date));
+
+    date = dayjs().add(4, 'day');
+    console.log(date.format('dddd, MMMM D'));
+    console.log(isSatSun(date));
+
+    date = dayjs().add(6, 'day');
+    console.log(date.format('dddd, MMMM D'));
+    console.log(isSatSun(date));
+
+    date = dayjs().add(8, 'day');
+    console.log(date.format('dddd, MMMM D'));
+    console.log(isSatSun(date));
+
+    //localstorage.clear();
+
+</script>
+
+
+</body>
+</html>
+
+

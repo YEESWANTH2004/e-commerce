@@ -12,7 +12,8 @@
     "axe/text-alternatives": [
       "default",
       {
-        "image-alt": "off"
+        "image-alt": "off",
+        "document-title": "off"
       }
     ],
     "axe/name-role-value": [
@@ -28,6 +29,7 @@
         "select-name": "off",
         "label": "off"
       }
-    ]
+    ],
+    "meta-viewport": "off"
   }
 }
