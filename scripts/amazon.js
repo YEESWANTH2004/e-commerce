@@ -1,6 +1,10 @@
+import { loadFromStorage, updateQuantity } from '../data/cart.js';
 import {cart, addToCart, calculateCartQuantity} from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
+
+
+loadFromStorage();
 
 let productsHTML = ' ';
 
@@ -49,6 +53,8 @@ products.forEach((product) =>{
             Added
           </div>
 
+          
+
           <button class="add-to-cart-button button-primary js-add-to-cart"
           data-product-id="${product.id}">
             Add to Cart
@@ -68,6 +74,7 @@ function updateToCart(){
     document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
 
 }
+
 
 function addMessageToCart(productId){
   const addedMessage = document.querySelector(
@@ -97,4 +104,7 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
     updateToCart();
     addMessageToCart(productId); 
     });
+
 });
+
+updateToCart();
