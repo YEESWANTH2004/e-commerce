@@ -1,5 +1,5 @@
 import { cart, removeFromCart, calculateCartQuantity, updateQuantity, updateDeliveryOption } from '../../data/cart.js';
-import { getProduct} from '../../data/products.js';
+import { getProduct, products} from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 import {deliveryOptions, getDeliveryOption, calculateDeliveryDate} from '../../data/deliveryoption.js';
 import { renderPaymentSummary } from './paymentSummary.js';
@@ -36,7 +36,7 @@ export function renderOrderSummary(){
           <div class="cart-item-details">
             <div class="product-name">${matchingProduct.name}</div>
             <div class="product-price">
-              $${formatCurrency(matchingProduct.priceCents)}
+              ${matchingProduct.getPrice()}
             </div>
             <div class="product-quantity
             js-product-quantity-${matchingProduct.id}">
