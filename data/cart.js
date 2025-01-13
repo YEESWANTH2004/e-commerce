@@ -1,50 +1,23 @@
-export let cart;
+export let cart = [];
 
-loadFromStorage();
-
+// Load the cart from localStorage or initialize it as empty
 export function loadFromStorage() {
-  cart = JSON.parse(localStorage.getItem('cart'));
-  if (!cart) {
-    cart = [
-      {
-        productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
-        quantity: 2,
-        deliveryOptionId: '1',
-      },
-      {
-        productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
-        quantity: 1,
-        deliveryOptionId: '2',
-      },
-    ];
-  }
+  cart = JSON.parse(localStorage.getItem('cart')) || [];
 }
 
 function saveToStorage() {
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-export function addToCart(productId) {
-  console.log('addToCart called');
+// Add a product to the cart or update its quantity
+export function addToCart(productId, quantity = 1) {
+  console.log('addToCart called with Product ID:', productId, 'Quantity:', quantity);
 
-  // If the function is called from the orders page (where quantity selector doesn't exist),
-  // default the quantity to 1.
-  const quantity = 1; // Default to 1 for "Buy Again" action
-
-  let matchingItem;
-
-  // Check if the product is already in the cart
-  cart.forEach((item) => {
-    if (productId === item.productId) {
-      matchingItem = item;
-    }
-  });
+  const matchingItem = cart.find((item) => item.productId === productId);
 
   if (matchingItem) {
-    // If the product is already in the cart, increase its quantity
     matchingItem.quantity += quantity;
   } else {
-    // Add the product to the cart if it's not already there
     cart.push({
       productId,
       quantity,
@@ -52,31 +25,18 @@ export function addToCart(productId) {
     });
   }
 
-  // Save the updated cart to localStorage
   saveToStorage();
-
   console.log(`Product added to cart: ${productId}, Quantity: ${quantity}`);
 }
 
-
+// Calculate total quantity of items in the cart
 export function calculateCartQuantity() {
-  let cartQuantity = 0;
-
-  cart.forEach((item) => {
-    cartQuantity += item.quantity;
-  });
-
-  return cartQuantity;
+  return cart.reduce((total, item) => total + item.quantity, 0);
 }
 
+// Update quantity of a specific product in the cart
 export function updateQuantity(productId, newQuantity) {
-  let matchingItem;
-
-  cart.forEach((cartItem) => {
-    if (productId === cartItem.productId) {
-      matchingItem = cartItem;
-    }
-  });
+  const matchingItem = cart.find((item) => item.productId === productId);
 
   if (matchingItem) {
     matchingItem.quantity = newQuantity;
@@ -84,21 +44,15 @@ export function updateQuantity(productId, newQuantity) {
   }
 }
 
+// Remove a product from the cart
 export function removeFromCart(productId) {
-  // Use filter to remove the product with the given productId from the cart
-  cart = cart.filter((cartItem) => cartItem.productId !== productId);
-
+  cart = cart.filter((item) => item.productId !== productId);
   saveToStorage();
 }
 
+// Update delivery option for a product
 export function updateDeliveryOption(productId, deliveryOptionId) {
-  let matchingItem;
-
-  cart.forEach((item) => {
-    if (productId === item.productId) {
-      matchingItem = item;
-    }
-  });
+  const matchingItem = cart.find((item) => item.productId === productId);
 
   if (matchingItem) {
     matchingItem.deliveryOptionId = deliveryOptionId;
@@ -106,14 +60,18 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
   }
 }
 
-export function loadCart(fun) {
+// Load the cart data from the backend (optional)
+export function loadCart(callback) {
   const xhr = new XMLHttpRequest();
 
   xhr.addEventListener('load', () => {
     console.log(xhr.response);
-    fun();
+    callback();
   });
 
   xhr.open('GET', 'https://supersimplebackend.dev/cart');
   xhr.send();
 }
+
+// Initialize the cart from localStorage
+loadFromStorage();
